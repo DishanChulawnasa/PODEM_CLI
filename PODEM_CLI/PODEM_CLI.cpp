@@ -49,9 +49,6 @@ vector <int> PONodes;
 class PODEM_functions
 {
 public:
-	PODEM_functions();
-	~PODEM_functions();
-
 	// Reads the file
 	int readFile()
 	{
@@ -64,14 +61,8 @@ public:
 		ostringstream s1;
 		ostringstream s2;
 
-		string outputFileName = "";
-		string inputFileName = "";
+		string inputFileName = "adder32.txt";
 		string line = "";
-
-		cout << "Enter the filename here: ";			// Name of the input file
-		cin >> inputFileName;
-
-		inputFileName += ".txt";
 
 		ifstream inputFile(inputFileName);
 
@@ -79,14 +70,8 @@ public:
 		if (inputFile.is_open())
 		{
 			while (getline(inputFile, line))
-				cout << endl << line;
+				//cout << endl << line;
 			inputFile.close();
-		}
-
-		else
-		{
-			cout << endl << "Unable to open file" << endl;
-			return 0;
 		}
 
 		inputFile.open(inputFileName);
@@ -650,14 +635,6 @@ public:
 private:
 
 }P_func;
-
-PODEM_functions::PODEM_functions()
-{
-}
-
-PODEM_functions::~PODEM_functions()
-{
-}
 
 int main()
 {
