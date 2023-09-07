@@ -37,6 +37,7 @@ NodenValue PIBacktrace;
 NodenValue PISet;
 Gates G;
 Nodes N;
+string podem_prog;
 
 int faultActFlag = 0;
 int status = 0;
@@ -170,26 +171,33 @@ public:
 	// Says whether the PODEM was successful or not!
 	int PODEM()
 	{
+		std::ofstream piNodesFiles("PI Nodes.txt");
+		std::ofstream inputVectorFile("Input Vector.txt");
+
 		// Checking if the error is at the Primary Outputs
 		for (int i = 0; i < PONodes.size(); i++)
 			if (node.at(PONodes.at(i)).faultFlag == 1)
 			{
-				cout << endl << endl << "SUCCESS";
-				cout << endl << endl << "PI nodes" << endl;
+				podem_prog = "THE FAULT IS TESTABLE";
+				//cout << endl << endl << podem_prog;
+				//cout << endl << endl << "PI nodes" << endl;
 
 				for (int i = 0; i < PINodes.size(); i++)
 				{
-					cout << PINodes.at(i) << ", ";
+					piNodesFiles << PINodes.at(i) << ", ";
+					//cout << PINodes.at(i) << ", ";
 				}
 
-				cout << endl << endl << "Input Vector" << endl;
+				//cout << endl << endl << "Input Vector" << endl;
 
 				for (int i = 0; i < PINodes.size(); i++)
 				{
 					if (node.at(PINodes.at(i)).nodeValue == -1)
-						cout << "x";
+						inputVectorFile << "x";
+						//cout << "x";
 					else
-						cout << node.at(PINodes.at(i)).nodeValue;
+						inputVectorFile << node.at(PINodes.at(i)).nodeValue;
+						//cout << node.at(PINodes.at(i)).nodeValue;
 				}
 
 				return 1;
@@ -220,22 +228,27 @@ public:
 
 		if (PODEM() == 1)
 		{
-			cout << endl << endl << "SUCCESS";
-			cout << endl << endl << "PI nodes" << endl;
+			podem_prog = "THE FAULT IS TESTABLE";
+			//cout << endl << endl << podem_prog;
+			//cout << endl << endl << "PI nodes" << endl;
 
 			for (int i = 0; i < PINodes.size(); i++)
 			{
-				cout << PINodes.at(i) << ", ";
+				piNodesFiles << PINodes.at(i) << ", ";
+				//cout << PINodes.at(i) << ", ";
 			}
 
-			cout << endl << endl << "Input Vector" << endl;
+			//cout << endl << endl << "Input Vector" << endl;
 
 			for (int i = 0; i < PINodes.size(); i++)
 			{
-				cout << node.at(PINodes.at(i)).nodeValue;
+				inputVectorFile << node.at(PINodes.at(i)).nodeValue;
+				//cout << node.at(PINodes.at(i)).nodeValue;
 			}
 
 			return 1;
+			piNodesFiles.close();
+			inputVectorFile.close();
 		}
 
 		PISet.nodeValue = -1;
@@ -658,7 +671,8 @@ int main()
 		result = P_func.PODEM();
 
 		if (status == 1)
-			cout << endl << endl << "NOT TASTABLE FROM ATPG";
+			podem_prog = "FAULT IS NOT TASTABLE";
+			cout << endl << endl << podem_prog;
 
 		status = 0;
 
