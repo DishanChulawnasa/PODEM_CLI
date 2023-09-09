@@ -653,48 +653,70 @@ int main()
 {
 	int flag = 1;
 	int result = 0;
-	char ans = 'y';
+	//char ans = 'y';
 
 	flag = P_func.readFile();
 	if (flag == 0)
 		return 0;
 
-	while (ans == 'y' || ans == 'Y')
-	{
-		cout << endl << endl << "Enter the faulty node: ";
-		cin >> Fault.nodeNumber;
+	Fault.nodeNumber = 12;
+	Fault.nodeValue = 1;
 
-		cout << "Enter the stuck at value: ";
-		cin >> Fault.nodeValue;
+	P_func.setX();
+	result = P_func.PODEM();
 
-		P_func.setX();
-		result = P_func.PODEM();
+	if (status == 1)
+		podem_prog = "FAULT IS NOT TASTABLE";
 
-		if (status == 1)
-			podem_prog = "FAULT IS NOT TASTABLE";
-			cout << endl << endl << podem_prog;
+	status = 0;
 
-		status = 0;
-
-		cout << endl << endl << "Do you wish to enter a new fault? : ";
-		cin >> ans;
-
-		for (int i = 1; i < node.size(); i++)
-		{
-			node.at(i).nodeFlag = 0;
-			node.at(i).faultFlag = 0;
-		}
-
-		for (int i = 0; i < gate.size(); i++)
-		{
-			gate.at(i).gateFlag = 0;
-		}
-
-		faultActFlag = 0;
+	for (int i = 1; i < node.size(); i++) {
+		node.at(i).nodeFlag = 0;
+		node.at(i).faultFlag = 0;
 	}
 
-	cout << endl << endl;
+	for (int i = 0; i < gate.size(); i++) {
+		gate.at(i).gateFlag = 0;
+	}
 
-	system("pause");
+	faultActFlag = 0;
+
+	//while (ans == 'y' || ans == 'Y')
+	//{
+	//	cout << endl << endl << "Enter the faulty node: ";
+	//	cin >> Fault.nodeNumber;
+
+	//	cout << "Enter the stuck at value: ";
+	//	cin >> Fault.nodeValue;
+
+	//	P_func.setX();
+	//	result = P_func.PODEM();
+
+	//	if (status == 1)
+	//		podem_prog = "FAULT IS NOT TASTABLE";
+	//		cout << endl << endl << podem_prog;
+
+	//	status = 0;
+
+	//	cout << endl << endl << "Do you wish to enter a new fault? : ";
+	//	cin >> ans;
+
+	//	for (int i = 1; i < node.size(); i++)
+	//	{
+	//		node.at(i).nodeFlag = 0;
+	//		node.at(i).faultFlag = 0;
+	//	}
+
+	//	for (int i = 0; i < gate.size(); i++)
+	//	{
+	//		gate.at(i).gateFlag = 0;
+	//	}
+
+	//	faultActFlag = 0;
+	//}
+
+	//cout << endl << endl;
+
+	//system("pause");
 	return 0;
 }
